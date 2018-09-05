@@ -1,8 +1,8 @@
-FROM node:8.11.3-alpine
+FROM node:8.11.4-alpine
 
 LABEL maintainer "inotom"
 LABEL title="middleman-dev"
-LABEL version="2"
+LABEL version="3"
 LABEL description="Middleman/Node.js development environment with Docker"
 
 ENV HOME=/home/app
@@ -33,7 +33,7 @@ WORKDIR $HOME/work
 RUN \
   mkdir $HOME/.npm-global \
   && npm config set prefix $HOME/.npm-global \
-  && npm install -g npm@6.1.0 \
+  && npm install -g npm@6.4.1 \
   && npm cache verify \
   && mkdir node_modules
 
