@@ -1,8 +1,8 @@
-FROM node:8.11.4-alpine
+FROM node:8.12.0-alpine
 
 LABEL maintainer "inotom"
 LABEL title="middleman-dev"
-LABEL version="3"
+LABEL version="4"
 LABEL description="Middleman/Node.js development environment with Docker"
 
 ENV HOME=/home/app
