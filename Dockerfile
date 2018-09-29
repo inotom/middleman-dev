@@ -1,4 +1,4 @@
-FROM node:8.12.0-alpine
+FROM node:8.11.4-alpine
 
 LABEL maintainer "inotom"
 LABEL title="middleman-dev"
@@ -16,15 +16,13 @@ RUN \
   && apk add --no-cache sudo shadow zip tzdata git build-base ruby ruby-dev ruby-json \
   && cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime \
   && apk del tzdata \
-  && gem install -N middleman -v "4.2.1" \
-  && gem install -N middleman-livereload -v "3.4.6" \
-  && gem install -N middleman-blog -v "4.0.2" \
+  && gem install -N bundler \
   && useradd --user-group --create-home --shell /bin/false app \
   && echo "app ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 WORKDIR $HOME/work
 
-COPY package.json package-lock.json .npmrc $HOME/work/
+COPY Gemfile Gemfile.lock .gemrc package.json package-lock.json .npmrc $HOME/work/
 RUN \
   chown -R app:app $HOME/*
 
@@ -35,6 +33,7 @@ RUN \
   && npm config set prefix $HOME/.npm-global \
   && npm install -g npm@6.4.1 \
   && npm cache verify \
-  && mkdir node_modules
+  && mkdir node_modules \
+  && bundle install
 
 EXPOSE 4567
