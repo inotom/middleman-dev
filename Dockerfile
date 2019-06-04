@@ -1,16 +1,16 @@
-FROM node:10.13.0-alpine as node
-FROM ruby:2.5.3-alpine3.8
+FROM node:10.16.0-alpine as node
+FROM ruby:2.6.3-alpine3.8
 
 LABEL maintainer "inotom"
 LABEL title="middleman-dev"
-LABEL version="5"
+LABEL version="6"
 LABEL description="Middleman/Node.js development environment with Docker"
 
 ENV HOME=/home/app
 ENV RUBYOPT=-EUTF-8
 ENV PATH=$HOME/.npm-global/bin:$PATH
 ENV PATH=./node_modules/.bin:$PATH
-ENV YARN_VERSION 1.10.1
+ENV YARN_VERSION 1.16.0
 
 RUN mkdir /opt
 COPY --from=node /opt/yarn-v$YARN_VERSION /opt/yarn
@@ -43,7 +43,7 @@ WORKDIR $HOME/work
 RUN \
   mkdir $HOME/.npm-global \
   && npm config set prefix $HOME/.npm-global \
-  && npm install -g npm@6.4.1 \
+  && npm install -g npm@6.9.0 \
   && npm cache verify \
   && mkdir node_modules \
   && bundle install
